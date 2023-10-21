@@ -1,38 +1,34 @@
 import socket
-from guessWord import play_game, get_random_word
+
+from  guessWord import WordGuess
 
 
 def server_program():
-    # get the hostname
     host = socket.gethostname()
-    port = 5000  # initiate port no above 1024
+    port = 5007  # initiate port no above 1024
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((host, port))
+        server_socket.listen(2)
+        conn, addr = server_socket.accept()
+        with conn:
+            print("Connection from: " + str(addr))
+            game = WordGuess()
+            conn.send(game.show_current_state().encode())
+            while True:
+                data = conn.recv(1024).decode()
+                if not data:
+                    break
+                is_finished = play_guess_word_game(conn, game, data)
+                if is_finished:
+                    break
 
-    server_socket = socket.socket()  # get instance
-    # look closely. The bind() function takes tuple as argument
-    server_socket.bind((host, port))  # bind host address and port together
 
-    # configure how many client the server can listen simultaneously
-    server_socket.listen(2)
-    conn, address = server_socket.accept()  # accept new connection
-    print("Connection from: " + str(address))
-
-    target_word = get_random_word()
-    guessed_word = '_' * len(target_word)
-    attempts = 6
-
-    while True:
-        # receive data stream. it won't accept data packet greater than 1024 bytes
-        data = conn.recv(1024).decode()
-        if not data:
-            # if data is not received break
-            break
-        play_game()
-        print("from connected user: " + str(data))
-        data = input(' -> ')
-        conn.send(data.encode())  # send data to the client
-
-    conn.close()  # close the connection
-
+def play_guess_word_game(conn, game, inp):
+    result = game.play_game(inp)
+    conn.send(result.encode())
+    state = game.show_current_state()
+    conn.send(state.encode())
+    return game.is_finish
 
 if __name__ == '__main__':
     server_program()
