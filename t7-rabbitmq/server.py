@@ -15,7 +15,11 @@ def main():
 
     print(' [*] Waiting for messages. To exit press CTRL+C')
 
+    def xx(channel):
+        channel.start_consuming()
 
+    t1 = threading.Thread(target=xx, args=(channel,))
+    t1.start()
 
     inp = ""
 
@@ -25,8 +29,6 @@ def main():
         channel.basic_publish(exchange='', routing_key='user2', body=inp)
 
         print(" [x] Sent '{}'".format(inp))
-
-        channel.start_consuming()
 
 
 

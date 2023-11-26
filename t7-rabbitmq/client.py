@@ -14,7 +14,11 @@ def main():
     channel.basic_consume(queue='user2', on_message_callback=callback, auto_ack=True)
 
     print(' [*] Waiting for messages. To exit press CTRL+C')
+    def xx(channel):
+        channel.start_consuming()
 
+    t1 = threading.Thread(target=xx, args=(channel,))
+    t1.start()
 
     inp = ""
 
@@ -24,7 +28,7 @@ def main():
         channel.basic_publish(exchange='', routing_key='user1', body=inp)
 
         print(" [x] Sent '{}'".format(inp))
-        channel.start_consuming()
+
 
 
 if __name__ == '__main__':
