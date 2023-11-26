@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=123654789
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+networks:
+  default:
+    driver: bridge
