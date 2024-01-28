@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: hub.hamdocker.ir/rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=123654789
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  api:
+    build: .
+    depends_on:
+      - rabbitmq
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+    ports:
+      - 6060:6060
+
