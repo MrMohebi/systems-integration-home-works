@@ -22,3 +22,12 @@ services:
     ports:
       - 6060:6060
 
+
+  front:
+    image: hub.hamdocker.ir/httpd
+    container_name: front
+    restart: unless-stopped
+    volumes:
+      - ./front:/usr/local/apache2/htdocs/
+    ports:
+      - "8080:80"

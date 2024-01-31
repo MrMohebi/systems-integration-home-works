@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:6060"
+const BASE_URL = "http://api:6060"
 
 
 const onCreateUser = () => {
