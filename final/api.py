@@ -7,6 +7,7 @@ import pika
 from flask_cors import CORS
 
 RABBIT_URL = "rabbitmq"
+# RABBIT_URL = "127.0.0.1"
 
 
 app = Flask(__name__)
@@ -73,3 +74,22 @@ def createNews():
     return "ok"
 
 
+@app.route('/news/today', methods=['GET'])
+def getTodayNews():
+    global connection
+
+    sql = "SELECT * FROM news"
+
+    cursor = connection.cursor()
+    rows = cursor.execute(sql).fetchall()
+
+    names = list(map(lambda x: x[0], cursor.description))
+
+    result = []
+    for row in rows:
+        result.append(dict(zip(names, list(row))))
+
+    return result
+
+
+# app.run("0.0.0.0", 6060)

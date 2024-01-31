@@ -1,20 +1,6 @@
 const BASE_URL = "http://127.0.0.1:6060"
 
 
-const container = document.getElementById('container');
-const registerBtn = document.getElementById('register');
-const loginBtn = document.getElementById('login');
-
-registerBtn.addEventListener('click', () => {
-    container.classList.add("active");
-    // alert("کابر با موفقیت ساخته شد")
-});
-
-loginBtn.addEventListener('click', () => {
-    container.classList.remove("active");
-});
-
-
 const onCreateUser = () => {
     const name = document.getElementById("name").value;
     const lastName = document.getElementById("last-name").value;
@@ -45,9 +31,9 @@ const onCreateUser = () => {
 
     fetch(BASE_URL + '/user/create', {
         method: 'POST',
-         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(apiData)
     }).then(res => {
@@ -74,9 +60,9 @@ const onCreateNews = () => {
 
     fetch(BASE_URL + '/admin/news/create', {
         method: 'POST',
-         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(apiData)
     }).then(res => {
@@ -88,5 +74,47 @@ const onCreateNews = () => {
         alert('خطا در ارسال درخواست: ' + error)
     });
 }
+const topics = {
+    sport: "ورزشی",
+    tech: "تکنولوژی",
+    politics: "سیاسی",
+}
+const getNews = () => {
+    fetch(BASE_URL + '/news/today', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        response.json().then(res => {
+            for (const item of res) {
+                const card = document.createElement("div")
+                card.classList.add("card")
 
+                const content = document.createElement("div")
+                card.classList.add("content")
 
+                const title = document.createElement("h4")
+                title.innerText = item.title
+                const topic = document.createElement("p")
+                topic.innerText = topics[item.topic]
+                const text = document.createElement("p")
+                text.innerText = item.title
+
+                content.appendChild(title)
+                content.appendChild(topic)
+                content.appendChild(text)
+
+                card.appendChild(content)
+
+                document.getElementById("newsID").appendChild(card)
+            }
+
+        })
+    }).catch(error => {
+        alert('خطا در ارسال درخواست: ' + error)
+    });
+}
+
+getNews()
