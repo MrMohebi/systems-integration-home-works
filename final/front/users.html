@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>ورود</title>
+</head>
+
+<body class="users">
+
+    <div class="container" id="container">
+        <div class="form-container user-register">
+            <form onsubmit="event.preventDefault(); onCreateUser()">
+                <h1>صفحه ثبت نام</h1>
+                <input type="text" id="name" name="name" placeholder="نام" required>
+                <input type="text" id="last-name" name="last-name" placeholder="نام خانوادگی" required>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{4}[0-9]{3}[0-9]{4}" placeholder="شماره تماس" required>
+                <br>
+                <div class="checkbox-group">
+                    <label>موضوعات خبری مورد علاقه</label>
+                    <br>
+                    <div class="checkboxes" style="display: flex; flex-direction: row; direction: rtl">
+                        <label for="sport">ورزشی</label><input type="checkbox" id="sport" name="sport" value="sport">
+                        <label for="tech">تکنولوژی</label><input type="checkbox" id="tech" name="tech" value="tech">
+                        <label for="politics">سیاسی</label><input type="checkbox" id="politics" name="politics" value="سیاسی">
+                    </div>
+                  </div>
+                <button>ثبت نام</button>
+            </form>
+        </div>
+        <div class="form-container admin-share" style="  direction: rtl;">
+            <form onsubmit="event.preventDefault(); onCreateNews()">
+                <h1>صفحه انتشار اخبار</h1>
+                <input type="text" id="title" name="title" placeholder="عنوان خبر" required>
+
+                <div style="display: flex; flex-direction: row; width: 100%">
+                    <label for="category">موضوع خبر: </label>
+                    <select name="category" id="category" style="width: 74%">
+                        <option value="sport">ورزشی</option>
+                        <option value="tech">تکنولوژی</option>
+                        <option value="politics">سیاسی</option>
+                    </select>
+                </div>
+
+                <textarea id="content" name="content" placeholder="متن خبر" required></textarea>
+                <button>انتشار خبر</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>!خوش آمدید</h1>
+                    <p>لطفا اخبار به روز را برای مشترکین به اشتراک بگذارید</p>
+                    <button class="hidden" id="login">انتشار خبر</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>! درود بر ادمین عزیز</h1>
+                    <p>برای آگاهی از اخبار مورد علاقه خود در سایت ما ثبت نام کنید</p>
+                    <button class="hidden" id="register">ثبت نام</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

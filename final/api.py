@@ -4,11 +4,13 @@ from flask import Flask, request
 import sqlite3
 from datetime import datetime
 import pika
+from flask_cors import CORS
 
 RABBIT_URL = "rabbitmq"
 
 
 app = Flask(__name__)
+CORS(app)
 
 connection = sqlite3.connect("data/data.db", check_same_thread=False)
 
