@@ -1,4 +1,4 @@
-const BASE_URL = "http://api:6060"
+const BASE_URL = "http://127.0.0.1:6060"
 
 
 const onCreateUser = () => {
@@ -8,8 +8,8 @@ const onCreateUser = () => {
 
     let topics = []
 
-    if (document.getElementById("sports").checked) {
-        topics.push("sports")
+    if (document.getElementById("sport").checked) {
+        topics.push("sport")
     }
     if (document.getElementById("tech").checked) {
         topics.push("tech")
